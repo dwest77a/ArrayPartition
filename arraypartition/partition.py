@@ -125,66 +125,6 @@ class SuperLazyArrayLike(ArrayLike):
     @shape.setter
     def shape(self, value):
         self._shape = value
-
-    def _combine_slices(self, newslice):
-        """
-        Combine existing ``extent`` attribute with a new set of slices.
-
-        :param newslice:        (tuple) A set of slices to apply to the data 
-            'Super-Lazily', i.e the slices will be combined with existing information
-            and applied later in the process.
-
-        :returns:   The combined set of slices.
-        """
-
-        if len(newslice) != len(self.shape):
-            if hasattr(self, 'active'):
-                # Mean has already been computed. Raise an error here 
-                # since we should be down to dealing with numpy arrays now.
-                raise ValueError(
-                    "Active chain broken - mean has already been accomplished."
-                )
-            
-            else:
-                raise ValueError(
-                    "Compute chain broken - dimensions have been reduced already."
-                )
-        
-        def combine_sliced_dim(old, new, dim):
-
-            ostart = old.start or 0
-            ostop  = old.stop or self.shape[dim]
-            ostep  = old.step or 1
-
-            osize = (ostop - ostart)/ostep
-
-            nstart = new.start or 0
-            nstop  = new.stop or self.shape[dim]
-            nstep  = new.step or 1
-
-            nsize = (nstop - nstart)/nstep
-
-            if nsize > osize:
-                raise IndexError(
-                    f'Attempted to slice dimension "{dim}" with new slice "({nstart},{nstop},{nstep})'
-                    f'but the dimension size is limited to {osize}.'
-                )
-
-            start = ostart + ostep*nstart
-            step  = ostep * nstep
-            stop  = start + step * (nstop - nstart)
-            
-            return slice(start, stop, step)
-
-
-        if not self._extent:
-            return newslice
-        else:
-            extent = list(self.get_extent())
-            for dim in range(len(newslice)):
-                if not _identical_extents(extent[dim], newslice[dim], self.shape[dim]):
-                    extent[dim] = combine_sliced_dim(extent[dim], newslice[dim], dim)
-            return extent
    
     def get_extent(self):
         return tuple(self._extent)
@@ -198,7 +138,7 @@ class SuperLazyArrayLike(ArrayLike):
         """
         kwargs = self.get_kwargs()
         if extent:
-            kwargs['extent'] = self._combine_slices(extent)
+            kwargs['extent'] = combine_slices(self.shape, list(self.get_extent()), extent)
 
         new_instance = SuperLazyArrayLike(
             self.shape,
@@ -423,7 +363,7 @@ class ArrayPartition(ActiveChunk, SuperLazyArrayLike):
         """
         kwargs = self.get_kwargs()
         if extent:
-            kwargs['extent'] = self._combine_slices(extent)
+            kwargs['extent'] = combine_slices(self.shape, list(self.get_extent()), extent)
 
         new_instance = ArrayPartition(
             self.filename,
