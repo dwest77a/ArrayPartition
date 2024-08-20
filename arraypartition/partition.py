@@ -363,7 +363,7 @@ class ArrayPartition(ActiveChunk, SuperLazyArrayLike):
         """
         kwargs = self.get_kwargs()
         if extent:
-            kwargs['extent'] = combine_slices(self.shape, self._extent, extent)
+            kwargs['extent'] = combine_slices(self.shape, list(self.get_extent()), extent)
 
         new_instance = ArrayPartition(
             self.filename,
