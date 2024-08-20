@@ -487,7 +487,7 @@ def _identical_extents(old, new, dshape):
            (ostop == nstop) and \
            (ostep == nstep)
 
-def _get_chunk_space(chunk_shape, shape):
+def get_chunk_space(chunk_shape, shape):
     """
     Derive the chunk space and shape given the user-provided ``chunks`` option. 
     Chunk space is the number of chunks in each dimension which presents like an array 
@@ -512,10 +512,9 @@ def _get_chunk_space(chunk_shape, shape):
 
     """
 
-    q = tuple([int(i/j) for i, j in zip(shape, chunk_shape)])
-    return q
+    return tuple([int(i/j) for i, j in zip(shape, chunk_shape)])
 
-def _get_chunk_shape(chunks, shape, dims, chunk_limits=True):
+def get_chunk_shape(chunks, shape, dims, chunk_limits=True):
     chunk_shape = [i for i in shape]
 
     for dim in chunks.keys():
@@ -525,7 +524,7 @@ def _get_chunk_shape(chunks, shape, dims, chunk_limits=True):
             if d == dim:
                 idim = x
 
-        if idim == None:
+        if not idim:
             raise ValueError(
                 f"Requested chunking across dimension '{dim}'"
                 f"but only '{dims}' present in the dataset"
@@ -539,3 +538,154 @@ def _get_chunk_shape(chunks, shape, dims, chunk_limits=True):
         chunk_shape[idim] = max(chunk_size, min_size)
 
     return tuple(chunk_shape)
+
+def get_chunk_positions(chunk_space):
+    origin = [0 for i in chunk_space]
+
+    positions = [
+        coord for coord in product(
+            *[range(r[0], r[1]) for r in zip(origin, chunk_space)]
+        )
+    ]
+
+    return positions
+
+def get_chunk_extent(position, shape, chunk_space):
+    extent = []
+    for dim in range(len(position)):
+        pos_index   = position[dim]
+        shape_size = shape[dim]
+        space_size = chunk_space[dim]
+
+        conversion = shape_size/space_size
+
+        ext = slice(
+            int(pos_index*conversion), int((pos_index+1)*conversion)
+        )
+        extent.append(ext)
+    return extent
+
+def get_dask_chunks(
+        array_space,
+        fragment_space,
+        extent,
+        dtype, 
+        explicit_shapes=None):
+    """
+    Define the `chunks` array passed to Dask when creating a Dask Array. This is an array of fragment sizes 
+    per dimension for each of the relevant dimensions. Copied from cf-python version 3.14.0 onwards.
+
+    :param array_space:     (tuple) The shape of the array in ``array space``.
+
+    :param fragment_space:  (tuple) The shape of the array in ``fragment space``.
+
+    :param extent:      (dict) The global extent of each fragment - where it fits into the total array for this variable (in array space).
+
+    :param dtype:       (obj) The datatype for this variable.
+
+    :param explicit_shapes:     (tuple) Set of shapes to apply to the fragments - currently not implemented outside this function.
+
+    :returns:       A tuple of the chunk sizes along each dimension.
+    """
+            
+    from numbers import Number
+    from dask.array.core import normalize_chunks
+
+    ndim = len(array_space)
+    fsizes_per_dim, fragmented_dim_indices = [],[]
+
+    for dim, n_fragments in enumerate(fragment_space):
+        if n_fragments != 1:
+
+            fsizes = []
+            index = [0] * ndim
+            for n in range(n_fragments):
+                index[dim] = n
+                ext = extent[tuple(index)][dim]
+                fragment_size = ext.stop - ext.start
+                fsizes.append(fragment_size)
+
+            fsizes_per_dim.append(tuple(fsizes))
+            fragmented_dim_indices.append(dim)
+        else:
+            # This aggregated dimension is spanned by exactly one
+            # fragment. Store None, for now, in the expectation
+            # that it will get overwritten.
+            fsizes_per_dim.append(None)
+
+    ## Handle explicit shapes for the fragments.
+
+    if isinstance(explicit_shapes, (str, Number)) or explicit_shapes is None:
+        fsizes_per_dim = [ # For each dimension, use fs or explicit_shapes if the dimension is fragmented or not respectively.
+            fs if i in fragmented_dim_indices else explicit_shapes for i, fs in enumerate(fsizes_per_dim)
+        ]
+    elif isinstance(explicit_shapes, dict):
+        fsizes_per_dim = [
+            fsizes_per_dim[i] if i in fragmented_dim_indices else explicit_shapes.get(i, "auto")
+            for i, fs in enumerate(fsizes_per_dim)
+        ]
+    else:
+        # explicit_shapes is a sequence
+        if len(explicit_shapes) != ndim:
+            raise ValueError(
+                f"Wrong number of 'explicit_shapes' elements in {explicit_shapes}: "
+                f"Got {len(explicit_shapes)}, expected {ndim}"
+            )
+
+        fsizes_per_dim = [
+            fs if i in fragmented_dim_indices else explicit_shapes[i] for i, fs in enumerate(fsizes_per_dim)
+        ]
+
+    return normalize_chunks(fsizes_per_dim, shape=array_space, dtype=dtype)
+
+def combine_slices(shape, extent, newslice):
+    """
+    Combine existing ``extent`` attribute with a new set of slices.
+
+    :param newslice:        (tuple) A set of slices to apply to the data 
+        'Super-Lazily', i.e the slices will be combined with existing information
+        and applied later in the process.
+
+    :returns:   The combined set of slices.
+    """
+
+    if len(newslice) != len(shape):
+
+        raise ValueError(
+            "Compute chain broken - dimensions have been reduced already."
+        )
+    
+    def combine_sliced_dim(old, new, dim):
+
+        ostart = old.start or 0
+        ostop  = old.stop or shape[dim]
+        ostep  = old.step or 1
+
+        osize = (ostop - ostart)/ostep
+
+        nstart = new.start or 0
+        nstop  = new.stop or shape[dim]
+        nstep  = new.step or 1
+
+        nsize = (nstop - nstart)/nstep
+
+        if nsize > osize:
+            raise IndexError(
+                f'Attempted to slice dimension "{dim}" with new slice "({nstart},{nstop},{nstep})'
+                f'but the dimension size is limited to {osize}.'
+            )
+
+        start = ostart + ostep*nstart
+        step  = ostep * nstep
+        stop  = start + step * (nstop - nstart)
+        
+        return slice(start, stop, step)
+
+
+    if not extent:
+        return newslice
+    else:
+        for dim in range(len(newslice)):
+            if not _identical_extents(extent[dim], newslice[dim], shape[dim]):
+                extent[dim] = combine_sliced_dim(extent[dim], newslice[dim], dim)
+        return extent
