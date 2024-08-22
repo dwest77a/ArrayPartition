@@ -261,7 +261,7 @@ class ArrayPartition(ActiveChunk, SuperLazyArrayLike):
         if args:
             dtype = args[0]
 
-        if dtype != self.dtype:
+        if dtype and dtype != self.dtype:
             raise ValueError(
                 'Requested datatype does not match this chunk'
             )
