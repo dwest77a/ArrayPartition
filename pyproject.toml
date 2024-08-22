@@ -8,6 +8,14 @@ name="ArrayPartition"
 version="1.0"
 dynamic = ["dependencies"]
 authors = [{name = "Daniel Westwood", email = "daniel.westwood@stfc.ac.uk"}]
+readme = "README.md"
+description = "Container module for ArrayLike Partition class behaviour"
+license = {file = "LICENSE"}
+keywords = ["array","class","CFAPyX","XarrayActive"]
+
+[project.urls]
+Repository = "https://github.com/dwest77/ArrayPartition.git"
+Documentation = "https://github.com/dwest77/ArrayPartition/blob/main/docs/build/html/index.html"
 
 #[tool.setuptools.dynamic]
 #dependencies = {file = ["requirements.txt"]}
