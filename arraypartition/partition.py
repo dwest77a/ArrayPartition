@@ -696,8 +696,11 @@ def normalize_partition_chunks(chunks, shape, dtype, named_dims):
     for nd in named_dims:
         if nd not in chunks.keys():
             chunk_values.append('auto')
-        else:
+            continue
+        try:
             chunk_values.append(int(chunks[nd]))
+        except ValueError:
+            chunk_values.append(chunks[nd])
 
     return normalize_chunks(
         chunk_values,
