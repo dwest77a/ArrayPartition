@@ -14,8 +14,8 @@ license = {file = "LICENSE"}
 keywords = ["array","class","CFAPyX","XarrayActive"]
 
 [project.urls]
-Repository = "https://github.com/dwest77/ArrayPartition.git"
-Documentation = "https://html-preview.github.io/?url=https://github.com/dwest77/ArrayPartition/blob/main/docs/build/html/index.html"
+Repository = "https://github.com/dwest77a/ArrayPartition.git"
+Documentation = "https://html-preview.github.io/?url=https://github.com/dwest77a/ArrayPartition/blob/main/docs/build/html/index.html"
 
 #[tool.setuptools.dynamic]
 #dependencies = {file = ["requirements.txt"]}

@@ -8,4 +8,4 @@ Not typically used on its own so there are no usage instructions.
 
 ## Documentation
 
-See [documentation for developers:](https://html-preview.github.io/?url=https://github.com/dwest77/ArrayPartition/blob/main/docs/build/html/index.html)
+See [documentation for developers:](https://html-preview.github.io/?url=https://github.com/dwest77a/ArrayPartition/blob/main/docs/build/html/index.html)
