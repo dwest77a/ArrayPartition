@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ArrayPartition Documentation &mdash; ArrayPartition Package 1.0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=0b546569"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            ArrayPartition Package
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">ArrayPartition Documentation</a><ul>
+<li><a class="reference internal" href="#arraypartition.partition.ArrayLike"><code class="docutils literal notranslate"><span class="pre">ArrayLike</span></code></a><ul>
+<li><a class="reference internal" href="#arraypartition.partition.ArrayLike.size"><code class="docutils literal notranslate"><span class="pre">ArrayLike.size</span></code></a></li>
+<li><a class="reference internal" href="#arraypartition.partition.ArrayLike.ndim"><code class="docutils literal notranslate"><span class="pre">ArrayLike.ndim</span></code></a></li>
+<li><a class="reference internal" href="#arraypartition.partition.ArrayLike.copy"><code class="docutils literal notranslate"><span class="pre">ArrayLike.copy()</span></code></a></li>
+<li><a class="reference internal" href="#arraypartition.partition.ArrayLike.get_kwargs"><code class="docutils literal notranslate"><span class="pre">ArrayLike.get_kwargs()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#arraypartition.partition.SuperLazyArrayLike"><code class="docutils literal notranslate"><span class="pre">SuperLazyArrayLike</span></code></a><ul>
+<li><a class="reference internal" href="#arraypartition.partition.SuperLazyArrayLike.shape"><code class="docutils literal notranslate"><span class="pre">SuperLazyArrayLike.shape</span></code></a></li>
+<li><a class="reference internal" href="#arraypartition.partition.SuperLazyArrayLike.get_extent"><code class="docutils literal notranslate"><span class="pre">SuperLazyArrayLike.get_extent()</span></code></a></li>
+<li><a class="reference internal" href="#arraypartition.partition.SuperLazyArrayLike.set_extent"><code class="docutils literal notranslate"><span class="pre">SuperLazyArrayLike.set_extent()</span></code></a></li>
+<li><a class="reference internal" href="#arraypartition.partition.SuperLazyArrayLike.copy"><code class="docutils literal notranslate"><span class="pre">SuperLazyArrayLike.copy()</span></code></a></li>
+<li><a class="reference internal" href="#arraypartition.partition.SuperLazyArrayLike.get_kwargs"><code class="docutils literal notranslate"><span class="pre">SuperLazyArrayLike.get_kwargs()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#arraypartition.partition.ArrayPartition"><code class="docutils literal notranslate"><span class="pre">ArrayPartition</span></code></a><ul>
+<li><a class="reference internal" href="#arraypartition.partition.ArrayPartition.get_kwargs"><code class="docutils literal notranslate"><span class="pre">ArrayPartition.get_kwargs()</span></code></a></li>
+<li><a class="reference internal" href="#arraypartition.partition.ArrayPartition.copy"><code class="docutils literal notranslate"><span class="pre">ArrayPartition.copy()</span></code></a></li>
+<li><a class="reference internal" href="#arraypartition.partition.ArrayPartition.open"><code class="docutils literal notranslate"><span class="pre">ArrayPartition.open()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#arraypartition.partition.get_chunk_space"><code class="docutils literal notranslate"><span class="pre">get_chunk_space()</span></code></a></li>
+<li><a class="reference internal" href="#arraypartition.partition.get_chunk_shape"><code class="docutils literal notranslate"><span class="pre">get_chunk_shape()</span></code></a></li>
+<li><a class="reference internal" href="#arraypartition.partition.get_chunk_positions"><code class="docutils literal notranslate"><span class="pre">get_chunk_positions()</span></code></a></li>
+<li><a class="reference internal" href="#arraypartition.partition.get_chunk_extent"><code class="docutils literal notranslate"><span class="pre">get_chunk_extent()</span></code></a></li>
+<li><a class="reference internal" href="#arraypartition.partition.get_dask_chunks"><code class="docutils literal notranslate"><span class="pre">get_dask_chunks()</span></code></a></li>
+<li><a class="reference internal" href="#arraypartition.partition.combine_slices"><code class="docutils literal notranslate"><span class="pre">combine_slices()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and Tables</a></li>
+<li><a class="reference internal" href="#acknowledgements">Acknowledgements</a></li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">ArrayPartition Package</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">ArrayPartition Documentation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="arraypartition-documentation">
+<h1>ArrayPartition Documentation<a class="headerlink" href="#arraypartition-documentation" title="Permalink to this heading"></a></h1>
+<p>Container module for ArrayLike Partition class behaviour.</p>
+<span class="target" id="module-arraypartition.partition"></span><dl class="py class">
+<dt class="sig sig-object py" id="arraypartition.partition.ArrayLike">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">arraypartition.partition.</span></span><span class="sig-name descname"><span class="pre">ArrayLike</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">units</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arraypartition/partition.html#ArrayLike"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arraypartition.partition.ArrayLike" title="Permalink to this definition"></a></dt>
+<dd><p>Container class for Array-like behaviour</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="arraypartition.partition.ArrayLike.size">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">size</span></span><a class="headerlink" href="#arraypartition.partition.ArrayLike.size" title="Permalink to this definition"></a></dt>
+<dd><p>Size property is derived from the current shape. In an <code class="docutils literal notranslate"><span class="pre">ArrayLike</span></code> 
+instance the shape is fixed, but other classes may alter the shape
+at runtime.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="arraypartition.partition.ArrayLike.ndim">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ndim</span></span><a class="headerlink" href="#arraypartition.partition.ArrayLike.ndim" title="Permalink to this definition"></a></dt>
+<dd><p>ndim property is derived from the current shape. In an <code class="docutils literal notranslate"><span class="pre">ArrayLike</span></code> 
+instance the shape is fixed, but other classes may alter the shape
+at runtime.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arraypartition.partition.ArrayLike.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arraypartition/partition.html#ArrayLike.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arraypartition.partition.ArrayLike.copy" title="Permalink to this definition"></a></dt>
+<dd><p>Return a new basic ArrayLike instance. Ignores provided kwargs
+this class does not require, but other inheritors may.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arraypartition.partition.ArrayLike.get_kwargs">
+<span class="sig-name descname"><span class="pre">get_kwargs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/arraypartition/partition.html#ArrayLike.get_kwargs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arraypartition.partition.ArrayLike.get_kwargs" title="Permalink to this definition"></a></dt>
+<dd><p>Get the kwargs provided to this class initially - for creating a copy.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="arraypartition.partition.SuperLazyArrayLike">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">arraypartition.partition.</span></span><span class="sig-name descname"><span class="pre">SuperLazyArrayLike</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">named_dims</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arraypartition/partition.html#SuperLazyArrayLike"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arraypartition.partition.SuperLazyArrayLike" title="Permalink to this definition"></a></dt>
+<dd><p>Container class for SuperLazy Array-Like behaviour. <code class="docutils literal notranslate"><span class="pre">SuperLazy</span></code> behaviour is
+defined as Lazy-Slicing behaviour for objects that are below the ‘Dask Surface’,
+i.e for object that serve as Dask Chunks.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="arraypartition.partition.SuperLazyArrayLike.shape">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">shape</span></span><a class="headerlink" href="#arraypartition.partition.SuperLazyArrayLike.shape" title="Permalink to this definition"></a></dt>
+<dd><p>Apply the current <code class="docutils literal notranslate"><span class="pre">extent</span></code> slices to determine the current array shape,
+given all current slicing operations. This replaces shape as a simple
+attribute in <code class="docutils literal notranslate"><span class="pre">ArrayLike</span></code>, on instantiation the <code class="docutils literal notranslate"><span class="pre">_shape</span></code> private attribute
+is defined, and subsequent attempts to retrieve the <code class="docutils literal notranslate"><span class="pre">shape</span></code> will depend on
+the current <code class="docutils literal notranslate"><span class="pre">extent</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arraypartition.partition.SuperLazyArrayLike.get_extent">
+<span class="sig-name descname"><span class="pre">get_extent</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/arraypartition/partition.html#SuperLazyArrayLike.get_extent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arraypartition.partition.SuperLazyArrayLike.get_extent" title="Permalink to this definition"></a></dt>
+<dd><p>Method for getting private variable <cite>_extent</cite> outside of this class.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arraypartition.partition.SuperLazyArrayLike.set_extent">
+<span class="sig-name descname"><span class="pre">set_extent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">extent</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arraypartition/partition.html#SuperLazyArrayLike.set_extent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arraypartition.partition.SuperLazyArrayLike.set_extent" title="Permalink to this definition"></a></dt>
+<dd><p>Method for directly setting the <cite>_extent</cite> for this class, once it has been
+‘smoothed’.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arraypartition.partition.SuperLazyArrayLike.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">extent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arraypartition/partition.html#SuperLazyArrayLike.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arraypartition.partition.SuperLazyArrayLike.copy" title="Permalink to this definition"></a></dt>
+<dd><p>Create a new instance of this class with all attributes of the current instance, but
+with a new initial extent made by combining the current instance extent with the <code class="docutils literal notranslate"><span class="pre">newextent</span></code>.
+Each ArrayLike class must overwrite this class to get the best performance with multiple 
+slicing operations.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arraypartition.partition.SuperLazyArrayLike.get_kwargs">
+<span class="sig-name descname"><span class="pre">get_kwargs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/arraypartition/partition.html#SuperLazyArrayLike.get_kwargs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arraypartition.partition.SuperLazyArrayLike.get_kwargs" title="Permalink to this definition"></a></dt>
+<dd><p>Get the kwargs provided to this class initially - for creating a copy.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="arraypartition.partition.ArrayPartition">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">arraypartition.partition.</span></span><span class="sig-name descname"><span class="pre">ArrayPartition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">address</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">position</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arraypartition/partition.html#ArrayPartition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arraypartition.partition.ArrayPartition" title="Permalink to this definition"></a></dt>
+<dd><p>Complete Array-like object with all proper methods for data retrieval.
+May include methods from <code class="docutils literal notranslate"><span class="pre">XarrayActive.ActiveChunk</span></code> if installed.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="arraypartition.partition.ArrayPartition.get_kwargs">
+<span class="sig-name descname"><span class="pre">get_kwargs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/arraypartition/partition.html#ArrayPartition.get_kwargs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arraypartition.partition.ArrayPartition.get_kwargs" title="Permalink to this definition"></a></dt>
+<dd><p>Return all the initial kwargs from instantiation, to support <code class="docutils literal notranslate"><span class="pre">.copy()</span></code> mechanisms by higher classes.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arraypartition.partition.ArrayPartition.copy">
+<span class="sig-name descname"><span class="pre">copy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">extent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arraypartition/partition.html#ArrayPartition.copy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arraypartition.partition.ArrayPartition.copy" title="Permalink to this definition"></a></dt>
+<dd><p>Create a new instance of this class with all attributes of the current instance, but
+with a new initial extent made by combining the current instance extent with the <code class="docutils literal notranslate"><span class="pre">newextent</span></code>.
+Each ArrayLike class must overwrite this class to get the best performance with multiple 
+slicing operations.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="arraypartition.partition.ArrayPartition.open">
+<span class="sig-name descname"><span class="pre">open</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/arraypartition/partition.html#ArrayPartition.open"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arraypartition.partition.ArrayPartition.open" title="Permalink to this definition"></a></dt>
+<dd><p>Open the source file for this chunk to extract data. Multiple file locations may be provided
+for this object, in which case there is a priority for ‘remote’ sources first, followed by 
+‘local’ sources - otherwise the order is as given in the fragment array variable <code class="docutils literal notranslate"><span class="pre">location</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="arraypartition.partition.get_chunk_space">
+<span class="sig-prename descclassname"><span class="pre">arraypartition.partition.</span></span><span class="sig-name descname"><span class="pre">get_chunk_space</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chunk_shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arraypartition/partition.html#get_chunk_space"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arraypartition.partition.get_chunk_space" title="Permalink to this definition"></a></dt>
+<dd><p>Derive the chunk space from the ratio between the chunk shape and array shape in
+each dimension. Chunk space is the number of chunks in each dimension which is 
+referred to as a <code class="docutils literal notranslate"><span class="pre">space</span></code> because it effectively represents the lengths of the each
+dimension in ‘chunk space’ rather than any particular chunk coordinate.</p>
+<dl>
+<dt>Example: </dt><dd><p>50 chunks across the time dimension of 1000 values which is represented by 8 
+fragments. Chunk space representation is (50,) and the chunk shape is (20,).</p>
+<p>Each chunk is served by at most 2 fragments, where each chunk is described using a 
+MultiFragmentWrapper object which appropriately sets the extents of each Fragment 
+object. The Fragments cover 125 values each:</p>
+<p>Chunk 0 served by Fragment 0 slice(0,20) 
+Chunk 1 served by Fragment 0 slice(20,40)
+…
+Chunk 6 served by Fragment 0 slice(120,None) and Fragment 1 slice(0,15)
+…
+and so on.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="arraypartition.partition.get_chunk_shape">
+<span class="sig-prename descclassname"><span class="pre">arraypartition.partition.</span></span><span class="sig-name descname"><span class="pre">get_chunk_shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chunks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dims</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chunk_limits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arraypartition/partition.html#get_chunk_shape"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arraypartition.partition.get_chunk_shape" title="Permalink to this definition"></a></dt>
+<dd><p>Calculate the chunk shape from the user-provided <code class="docutils literal notranslate"><span class="pre">chunks</span></code> parameter,
+the array shape and named dimensions, and apply chunk limits if enabled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>chunks</strong> – (dict) The user specified chunks, which match the usual dask
+chunks from xr.open_dataset, except these come from the <code class="docutils literal notranslate"><span class="pre">cfa_options</span></code>.</p></li>
+<li><p><strong>shape</strong> – (tuple) The array shape of the data array to be chunked.</p></li>
+<li><p><strong>dims</strong> – (tuple) The names of each dimension to match to the <code class="docutils literal notranslate"><span class="pre">chunks</span></code>
+provided.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>:param chunk_limits (bool) Option to disable, chunk limits will prevent chunking</dt><dd><p>to beyond a useful chunk size which is likely to be much less than the memory
+chunk size of the source files, in which case there would be a lot of wasted 
+data retrieval.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A tuple of the shape of each chunk in <code class="docutils literal notranslate"><span class="pre">array</span> <span class="pre">space</span></code> for each dimension.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="arraypartition.partition.get_chunk_positions">
+<span class="sig-prename descclassname"><span class="pre">arraypartition.partition.</span></span><span class="sig-name descname"><span class="pre">get_chunk_positions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chunk_space</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arraypartition/partition.html#get_chunk_positions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arraypartition.partition.get_chunk_positions" title="Permalink to this definition"></a></dt>
+<dd><p>Get the list of chunk positions in <code class="docutils literal notranslate"><span class="pre">chunk</span> <span class="pre">space</span></code> given the size
+of the space.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="arraypartition.partition.get_chunk_extent">
+<span class="sig-prename descclassname"><span class="pre">arraypartition.partition.</span></span><span class="sig-name descname"><span class="pre">get_chunk_extent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">position</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chunk_space</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arraypartition/partition.html#get_chunk_extent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arraypartition.partition.get_chunk_extent" title="Permalink to this definition"></a></dt>
+<dd><p>Get the extent of a particular chunk within the space given its position,
+the array shape and the extent of the chunk space.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="arraypartition.partition.get_dask_chunks">
+<span class="sig-prename descclassname"><span class="pre">arraypartition.partition.</span></span><span class="sig-name descname"><span class="pre">get_dask_chunks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array_space</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fragment_space</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">explicit_shapes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arraypartition/partition.html#get_dask_chunks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arraypartition.partition.get_dask_chunks" title="Permalink to this definition"></a></dt>
+<dd><p>Define the <cite>chunks</cite> array passed to Dask when creating a Dask Array. This is an array of fragment sizes 
+per dimension for each of the relevant dimensions. Copied from cf-python version 3.14.0 onwards.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>array_space</strong> – (tuple) The shape of the array in <code class="docutils literal notranslate"><span class="pre">array</span> <span class="pre">space</span></code>.</p></li>
+<li><p><strong>fragment_space</strong> – (tuple) The shape of the array in <code class="docutils literal notranslate"><span class="pre">fragment</span> <span class="pre">space</span></code>.</p></li>
+<li><p><strong>extent</strong> – (dict) The global extent of each fragment - where it fits into 
+the total array for this variable (in array space).</p></li>
+<li><p><strong>dtype</strong> – (obj) The datatype for this variable.</p></li>
+<li><p><strong>explicit_shapes</strong> – (tuple) Set of shapes to apply to the fragments - currently 
+not implemented outside this function.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple of the chunk sizes along each dimension.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="arraypartition.partition.combine_slices">
+<span class="sig-prename descclassname"><span class="pre">arraypartition.partition.</span></span><span class="sig-name descname"><span class="pre">combine_slices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newslice</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/arraypartition/partition.html#combine_slices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#arraypartition.partition.combine_slices" title="Permalink to this definition"></a></dt>
+<dd><p>Combine existing <code class="docutils literal notranslate"><span class="pre">extent</span></code> attribute with a new set of slices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>newslice</strong> – (tuple) A set of slices to apply to the data 
+‘Super-Lazily’, i.e the slices will be combined with existing information
+and applied later in the process.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The combined set of slices.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="indices-and-tables">
+<h1>Indices and Tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading"></a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+<section id="acknowledgements">
+<h1>Acknowledgements<a class="headerlink" href="#acknowledgements" title="Permalink to this heading"></a></h1>
+<p>ArrayPartition is being developed as part of a joint project between the Centre for Environmental Data Analysis (CEDA) and the NCAS Computational Modelling Services team (NCAS-CMS)</p>
+<a class="reference internal image-reference" href="_images/ceda.png"><img alt="CEDA Logo" src="_images/ceda.png" style="width: 300px;" /></a>
+<a class="reference internal image-reference" href="_images/ncas.png"><img alt="NCAS Logo" src="_images/ncas.png" style="width: 300px;" /></a>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022-2024, Centre of Environmental Data Analysis Developers,Scientific and Technical Facilities Council (STFC),UK Research and Innovation (UKRI). BSD 2-Clause License. All rights reserved.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
