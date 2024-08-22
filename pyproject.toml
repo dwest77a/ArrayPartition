@@ -15,7 +15,7 @@ keywords = ["array","class","CFAPyX","XarrayActive"]
 
 [project.urls]
 Repository = "https://github.com/dwest77/ArrayPartition.git"
-Documentation = "https://github.com/dwest77/ArrayPartition/blob/main/docs/build/html/index.html"
+Documentation = "https://html-preview.github.io/?url=https://github.com/dwest77/ArrayPartition/blob/main/docs/build/html/index.html"
 
 #[tool.setuptools.dynamic]
 #dependencies = {file = ["requirements.txt"]}
