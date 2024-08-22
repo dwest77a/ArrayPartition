@@ -233,7 +233,7 @@ class ArrayPartition(ActiveChunk, SuperLazyArrayLike):
         if args:
             dtype = args[0]
 
-        if dtype != self.dtype:
+        if dtype and dtype != self.dtype:
             raise ValueError(
                 'Requested datatype does not match this chunk'
             )
@@ -267,7 +267,7 @@ class ArrayPartition(ActiveChunk, SuperLazyArrayLike):
             self._correct_slice(array.dimensions)
 
         try:
-            var = np.array(array[tuple(self._extent)])
+            var = np.array(array[tuple(self._extent)], dtype=self.dtype)
         except IndexError:
             raise ValueError(
                 f"Unable to select required 'extent' of {self.extent} "

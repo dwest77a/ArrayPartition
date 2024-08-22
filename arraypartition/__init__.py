@@ -1,5 +1,11 @@
 from .partition import (
     ArrayLike,
     SuperLazyArrayLike,
-    ArrayPartition
+    ArrayPartition,
+    get_chunk_shape,
+    get_chunk_space,
+    get_chunk_positions,
+    get_chunk_extent,
+    get_dask_chunks,
+    combine_slices
 )
