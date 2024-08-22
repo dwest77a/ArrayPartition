@@ -6,6 +6,7 @@ import numpy as np
 import netCDF4
 
 from itertools import product
+import math
 from dask.utils import SerializableLock
 from dask.array.core import normalize_chunks
 
@@ -479,7 +480,8 @@ def get_chunk_space(chunk_shape, shape):
 
     """
 
-    return tuple([int(i/j) for i, j in zip(shape, chunk_shape)])
+    space = tuple([math.ceil(i/j) for i, j in zip(shape, chunk_shape)])
+    return space
 
 def get_chunk_shape(chunks, shape, dims, chunk_limits=True):
     """
